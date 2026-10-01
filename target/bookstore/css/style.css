@@ -1,0 +1,394 @@
+/* ============================================
+   BookStore_24162073 - Custom Styles
+   Họ tên: Nguyễn Anh Minh | MSSV: 24162073
+   Color Theme: Đỏ đô (Burgundy/Wine Red)
+   ============================================ */
+
+/* === COLOR VARIABLES === */
+:root {
+    --primary: #8B1A2B;
+    --primary-dark: #6B0F1E;
+    --primary-darker: #4A0A15;
+    --primary-light: #A83248;
+    --primary-lighter: #F2DDE1;
+    --accent: #D4A84B;
+    --bg-body: #FFF9FA;
+    --bg-card: #FFFFFF;
+    --text-dark: #2C1018;
+    --text-muted: #6B4F57;
+    --border: #E8C3CB;
+}
+
+/* === GENERAL === */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-body) !important;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-dark);
+}
+
+main {
+    flex: 1;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5 {
+    color: var(--text-dark);
+}
+
+/* === NAVBAR === */
+.navbar-maroon {
+    background-color: var(--primary) !important;
+    box-shadow: 0 2px 8px rgba(139, 26, 43, 0.4);
+}
+
+.navbar-maroon .navbar-brand {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #fff !important;
+}
+
+.navbar-maroon .nav-link {
+    color: rgba(255,255,255,0.9) !important;
+    transition: all 0.2s;
+    padding: 8px 14px !important;
+    border-radius: 6px;
+    margin: 0 2px;
+}
+
+.navbar-maroon .nav-link:hover {
+    color: #fff !important;
+    background-color: rgba(255,255,255,0.15);
+}
+
+.navbar-toggler {
+    border-color: rgba(255,255,255,0.5) !important;
+}
+
+/* === FOOTER === */
+footer {
+    background-color: var(--primary) !important;
+    color: #fff !important;
+    padding: 18px 0;
+}
+
+footer p {
+    margin: 3px 0;
+    color: #fff !important;
+}
+
+/* === BUTTONS === */
+.btn-primary {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: #fff !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+}
+
+.btn-maroon {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+.btn-maroon:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    color: #fff;
+}
+
+.btn-outline-maroon {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: transparent;
+}
+
+.btn-outline-maroon:hover {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+.bg-maroon {
+    background-color: var(--primary) !important;
+    color: #fff !important;
+}
+
+/* === BOOK CARDS === */
+.book-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    height: 100%;
+    background: var(--bg-card);
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(139, 26, 43, 0.15);
+    border-color: var(--primary-light);
+}
+
+.book-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background: var(--primary-lighter);
+}
+
+.book-card-img-wrapper {
+    height: 200px;
+    overflow: hidden;
+    background: var(--primary-lighter);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-card-placeholder {
+    font-size: 4rem;
+    color: var(--primary-light);
+}
+
+.book-card .card-body {
+    padding: 15px;
+}
+
+.book-card .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.book-card .card-title a {
+    color: var(--primary) !important;
+}
+
+.book-card .card-title a:hover {
+    color: var(--primary-dark) !important;
+}
+
+.book-card .card-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+}
+
+/* === PRICE === */
+.price-tag {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+
+/* === AUTHOR SECTION (Home Page) === */
+.author-section {
+    margin-bottom: 35px;
+    padding: 25px;
+    background: var(--bg-card);
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(139, 26, 43, 0.06);
+    border-left: 4px solid var(--primary);
+}
+
+.author-section h3 {
+    color: var(--primary);
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* === PAGE TITLES === */
+.page-title {
+    color: var(--primary) !important;
+    font-weight: 700;
+    border-bottom: 3px solid var(--primary);
+    padding-bottom: 8px;
+    display: inline-block;
+}
+
+/* === PAGINATION === */
+.pagination .page-link {
+    color: var(--primary);
+    border-color: var(--border);
+}
+
+.pagination .page-link:hover {
+    background-color: var(--primary-lighter);
+    color: var(--primary-dark);
+    border-color: var(--primary-light);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: #fff !important;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #aaa;
+}
+
+/* === BOOK DETAIL === */
+.book-detail {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 12px rgba(139, 26, 43, 0.08);
+}
+
+.book-detail img {
+    max-width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(139, 26, 43, 0.2);
+}
+
+/* === REVIEWS === */
+.review-item {
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+}
+
+.review-item .user-name {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.star-rating {
+    color: var(--accent);
+    font-size: 1.1rem;
+}
+
+/* === AUTH FORMS === */
+.auth-form {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 35px;
+    background: var(--bg-card);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(139, 26, 43, 0.1);
+    border-top: 4px solid var(--primary);
+}
+
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--primary);
+}
+
+.auth-form .btn,
+.auth-form .btn-primary {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    width: 100%;
+    padding: 10px;
+    font-weight: 600;
+}
+
+.auth-form .btn:hover,
+.auth-form .btn-primary:hover {
+    background-color: var(--primary-dark) !important;
+}
+
+/* === FORM CONTROLS === */
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-light) !important;
+    box-shadow: 0 0 0 0.2rem rgba(139, 26, 43, 0.2) !important;
+}
+
+/* === OTP === */
+.otp-input {
+    font-size: 1.5rem;
+    text-align: center;
+    letter-spacing: 10px;
+    font-weight: bold;
+}
+
+/* === ADMIN TABLE === */
+.admin-table {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(139, 26, 43, 0.06);
+}
+
+.admin-table img {
+    width: 60px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.table thead th {
+    background-color: var(--primary) !important;
+    color: #fff !important;
+    border: none;
+    font-weight: 600;
+}
+
+.table-hover tbody tr:hover {
+    background-color: var(--primary-lighter) !important;
+}
+
+.btn-warning {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    color: #fff !important;
+}
+
+.btn-danger {
+    background-color: #c0392b !important;
+}
+
+/* === BADGES === */
+.badge.bg-info {
+    background-color: var(--primary) !important;
+    color: #fff !important;
+}
+
+.badge.bg-maroon {
+    background-color: var(--primary) !important;
+}
+
+/* === ALERTS === */
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: var(--border);
+    color: var(--primary-dark);
+}
+
+/* === PRODUCTS PAGE === */
+.products-page {
+    padding: 10px 0;
+}
+
+/* === VIEW ALL LINK === */
+a.btn-outline-maroon,
+.author-section a {
+    color: var(--primary) !important;
+}

@@ -1,0 +1,73 @@
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><sitemesh:write property='title'>BookStore</sitemesh:write></title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/style.css?v=4" rel="stylesheet">
+    <sitemesh:write property='head'/>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-maroon">
+            <div class="container">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/home">📚 BookStore</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/home">Trang Chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/products">Sản phẩm</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <c:if test="${empty sessionScope.user}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/login">Đăng nhập</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/register">Đăng ký</a>
+                            </li>
+                        </c:if>
+                        <c:if test="${not empty sessionScope.user}">
+                            <li class="nav-item">
+                                <span class="nav-link">Xin chào, ${sessionScope.user.fullname}</span>
+                            </li>
+                            <c:if test="${sessionScope.user.admin}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/books">Trang quản trị</a>
+                                </li>
+                            </c:if>
+                            <li class="nav-item">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
+                            </li>
+                        </c:if>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
+        <sitemesh:write property='body'/>
+    </main>
+
+    <footer class="text-white text-center py-3 mt-5">
+        <div class="container">
+            <p class="mb-1">Họ tên: Nguyễn Anh Minh | MSSV: 24162073 | Mã đề: 02</p>
+            <p class="mb-0">&copy; 2026 BookStore</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
