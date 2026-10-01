@@ -1,2 +1,24 @@
+# Build artifacts & compiled files
 /target/
+target/
+*.war
+*.class
+
+# IDE & Editor configurations
 .vscode/
+.idea/
+*.iml
+.settings/
+.project
+.classpath
+
+# Documents, assignments, reports and instructions (kept local only)
+*.docx
+*.pdf
+*.md
+pic/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini

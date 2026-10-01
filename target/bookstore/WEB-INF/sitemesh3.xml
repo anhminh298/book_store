@@ -1,7 +1,0 @@
-<sitemesh>
-    <mapping path="/admin/*" decorator="admin-layout.jsp"/>
-    <mapping path="/*" decorator="user-layout.jsp"/>
-    <mapping path="/css/*" exclude="true"/>
-    <mapping path="/uploads/*" exclude="true"/>
-    <mapping path="/WEB-INF/*" exclude="true"/>
-</sitemesh>
