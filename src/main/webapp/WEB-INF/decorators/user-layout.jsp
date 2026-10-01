@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +29,14 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/cart">
+                                🛒 Giỏ hàng
+                                <c:if test="${not empty sessionScope.cart and sessionScope.cart.totalQuantity > 0}">
+                                    <span class="badge rounded-pill bg-light text-dark ms-1">${sessionScope.cart.totalQuantity}</span>
+                                </c:if>
+                            </a>
+                        </li>
                         <c:if test="${empty sessionScope.user}">
                             <li class="nav-item">
                                 <a class="nav-link" href="${pageContext.request.contextPath}/login">Đăng nhập</a>
@@ -38,6 +46,9 @@
                             </li>
                         </c:if>
                         <c:if test="${not empty sessionScope.user}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/order-history">📦 Đơn hàng</a>
+                            </li>
                             <li class="nav-item">
                                 <span class="nav-link">Xin chào, ${sessionScope.user.fullname}</span>
                             </li>

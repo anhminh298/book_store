@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="vi">
@@ -32,6 +32,23 @@
     <div class="container mt-5">
         <a href="${pageContext.request.contextPath}/home" class="btn btn-secondary mb-4">&laquo; Quay lại trang chủ</a>
         
+        <c:if test="${not empty sessionScope.cartSuccess}">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Thành công!</strong> <c:out value="${sessionScope.cartSuccess}"/>
+                <a href="${pageContext.request.contextPath}/cart" class="alert-link ms-2">Xem giỏ hàng &raquo;</a>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <c:remove var="cartSuccess" scope="session"/>
+        </c:if>
+
+        <c:if test="${not empty sessionScope.cartError}">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Lưu ý:</strong> <c:out value="${sessionScope.cartError}"/>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <c:remove var="cartError" scope="session"/>
+        </c:if>
+        
         <!-- Book Detail Section -->
         <div class="row book-detail mb-5">
             <div class="col-md-4 text-center text-md-start">
@@ -55,7 +72,39 @@
                 <p><strong>Nhà xuất bản:</strong> ${book.publisher}</p>
                 <p><strong>Ngày xuất bản:</strong> ${book.publishDate}</p>
                 <p><strong>Số lượng:</strong> ${book.quantity}</p>
-                <p><strong>Giá:</strong> ${book.price} VNĐ</p>
+                <p><strong>Giá:</strong> <span class="fs-4 fw-bold text-danger">${book.price} VNĐ</span></p>
+
+                <!-- Add to Cart Form -->
+                <c:choose>
+                    <c:when test="${book.quantity > 0}">
+                        <div class="card p-3 bg-light border-0 my-3 rounded-3">
+                            <form action="${pageContext.request.contextPath}/cart/add" method="POST" class="row g-2 align-items-center">
+                                <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
+                                <input type="hidden" name="bookId" value="${book.bookid}">
+                                <input type="hidden" name="redirect" value="/book-detail?id=${book.bookid}">
+                                <div class="col-auto">
+                                    <label for="cartQuantity" class="col-form-label fw-bold">Số lượng:</label>
+                                </div>
+                                <div class="col-auto" style="width: 100px;">
+                                    <input type="number" id="cartQuantity" name="quantity" class="form-control text-center" value="1" min="1" max="${book.quantity}">
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-maroon px-4 fw-bold shadow-sm">
+                                        🛒 Thêm vào giỏ hàng
+                                    </button>
+                                </div>
+                                <div class="col-12 mt-1">
+                                    <small class="text-muted">Còn ${book.quantity} cuốn sẵn sàng giao</small>
+                                </div>
+                            </form>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="alert alert-warning my-3 py-2">
+                            <strong>Tạm hết hàng:</strong> Sản phẩm này hiện tại đã hết số lượng tồn kho.
+                        </div>
+                    </c:otherwise>
+                </c:choose>
                 <div class="mt-4">
                     <strong>Mô tả:</strong>
                     <p class="mt-2">${book.description}</p>

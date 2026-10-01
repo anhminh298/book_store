@@ -11,6 +11,23 @@
             <span class="badge bg-maroon fs-6">${totalCount} sách</span>
         </div>
 
+        <c:if test="${not empty sessionScope.cartSuccess}">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Thành công!</strong> <c:out value="${sessionScope.cartSuccess}"/>
+                <a href="${pageContext.request.contextPath}/cart" class="alert-link ms-2">Xem giỏ hàng &raquo;</a>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <c:remove var="cartSuccess" scope="session"/>
+        </c:if>
+
+        <c:if test="${not empty sessionScope.cartError}">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Lưu ý:</strong> <c:out value="${sessionScope.cartError}"/>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <c:remove var="cartError" scope="session"/>
+        </c:if>
+
         <c:if test="${empty books}">
             <div class="alert alert-info">Chưa có sản phẩm nào.</div>
         </c:if>
@@ -56,6 +73,27 @@
                                 <span class="star-rating">
                                     ★ Review (${book.ratingCount})
                                 </span>
+                            </div>
+                            <div class="mt-3 d-flex justify-content-between align-items-center">
+                                <a href="${pageContext.request.contextPath}/book-detail?id=${book.bookid}" class="btn btn-outline-maroon btn-sm">
+                                    Chi tiết
+                                </a>
+                                <c:choose>
+                                    <c:when test="${book.quantity > 0}">
+                                        <form action="${pageContext.request.contextPath}/cart/add" method="POST" class="d-inline mb-0">
+                                            <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
+                                            <input type="hidden" name="bookId" value="${book.bookid}">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <input type="hidden" name="redirect" value="/products?page=${currentPage}">
+                                            <button type="submit" class="btn btn-maroon btn-sm">
+                                                🛒 Thêm giỏ
+                                            </button>
+                                        </form>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <button class="btn btn-secondary btn-sm" disabled>Hết hàng</button>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>
