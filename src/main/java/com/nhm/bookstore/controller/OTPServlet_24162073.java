@@ -38,19 +38,10 @@ public class OTPServlet_24162073 extends HttpServlet {
             String phoneStr = (String) session.getAttribute("reg_phone");
             String passwd = (String) session.getAttribute("reg_passwd");
             
-            int phone = 0;
-            if (phoneStr != null && !phoneStr.trim().isEmpty()) {
-                try {
-                    phone = Integer.parseInt(phoneStr);
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
-            }
-
             User_24162073 user = new User_24162073();
             user.setEmail(email);
             user.setFullname(fullname);
-            user.setPhone(phone);
+            user.setPhone(phoneStr);
             user.setPasswd(passwd);
             user.setAdmin(false);
 

@@ -18,6 +18,7 @@
                 </c:if>
 
                 <form class="auth-form" action="${pageContext.request.contextPath}/login" method="POST">
+                    <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" name="email" required>

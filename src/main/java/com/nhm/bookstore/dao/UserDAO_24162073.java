@@ -15,7 +15,7 @@ public class UserDAO_24162073 {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, user.getEmail());
             ps.setString(2, user.getFullname());
-            ps.setInt(3, user.getPhone());
+            ps.setString(3, user.getPhone());
             ps.setString(4, user.getPasswd());
             ps.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
             ps.executeUpdate();
@@ -103,7 +103,7 @@ public class UserDAO_24162073 {
         user.setId(rs.getInt("id"));
         user.setEmail(rs.getString("email"));
         user.setFullname(rs.getString("fullname"));
-        user.setPhone(rs.getInt("phone"));
+        user.setPhone(rs.getString("phone"));
         user.setPasswd(rs.getString("passwd"));
         user.setSignupDate(rs.getTimestamp("signup_date"));
         user.setLastLogin(rs.getTimestamp("last_login"));

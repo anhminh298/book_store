@@ -17,6 +17,15 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>csrfFilter</filter-name>
+        <filter-class>com.nhm.bookstore.filter.CsrfFilter_24162073</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>csrfFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <!-- SiteMesh Filter -->
     <filter>
         <filter-name>sitemesh</filter-name>
@@ -35,6 +44,14 @@
     <filter-mapping>
         <filter-name>authFilter</filter-name>
         <url-pattern>/review</url-pattern>
+        <url-pattern>/profile</url-pattern>
+        <url-pattern>/cart</url-pattern>
+        <url-pattern>/cart/*</url-pattern>
+        <url-pattern>/checkout</url-pattern>
+        <url-pattern>/checkout/*</url-pattern>
+        <url-pattern>/order-history</url-pattern>
+        <url-pattern>/order-detail</url-pattern>
+        <url-pattern>/order/cancel</url-pattern>
     </filter-mapping>
 
     <!-- Admin Filter -->

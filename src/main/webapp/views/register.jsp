@@ -18,6 +18,7 @@
                 </c:if>
 
                 <form class="auth-form" action="${pageContext.request.contextPath}/register" method="POST">
+                    <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" name="email" required>
@@ -28,7 +29,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="phone" class="form-label">Số điện thoại</label>
-                        <input type="number" class="form-control" id="phone" name="phone">
+                        <input type="tel" class="form-control" id="phone" name="phone" maxlength="20">
                     </div>
                     <div class="mb-3">
                         <label for="passwd" class="form-label">Mật khẩu</label>

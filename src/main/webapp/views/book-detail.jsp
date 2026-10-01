@@ -98,6 +98,7 @@
                 <c:choose>
                     <c:when test="${sessionScope.user != null}">
                         <form action="${pageContext.request.contextPath}/review" method="POST" class="mt-3">
+                            <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
                             <input type="hidden" name="bookid" value="${book.bookid}">
                             
                             <div class="mb-3">

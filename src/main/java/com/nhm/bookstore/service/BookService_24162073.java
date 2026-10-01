@@ -31,8 +31,20 @@ public class BookService_24162073 {
         return bookDAO.findAll(page, pageSize);
     }
 
+    public List<Book_24162073> getAllForAdmin(int page, int pageSize) {
+        return bookDAO.findAllForAdmin(page, pageSize);
+    }
+
+    public Book_24162073 getByIdForAdmin(int bookId) {
+        return bookDAO.findByIdForAdmin(bookId);
+    }
+
     public int countAll() {
         return bookDAO.countAll();
+    }
+
+    public int countAllForAdmin() {
+        return bookDAO.countAllForAdmin();
     }
 
     public int countByAuthorId(int authorId) {
@@ -98,14 +110,6 @@ public class BookService_24162073 {
     }
 
     public boolean delete(int bookid) {
-        try {
-            ratingDAO.deleteByBookId(bookid);
-            bookAuthorDAO.deleteByBookId(bookid);
-            bookDAO.delete(bookid);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        return bookDAO.delete(bookid);
     }
 }

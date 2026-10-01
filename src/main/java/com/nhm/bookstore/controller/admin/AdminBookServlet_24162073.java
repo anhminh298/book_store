@@ -73,11 +73,11 @@ public class AdminBookServlet_24162073 extends HttpServlet {
                     }
                 }
                 
-                List<Book_24162073> books = bookService.getAll(page, pageSize);
+                List<Book_24162073> books = bookService.getAllForAdmin(page, pageSize);
                 for (Book_24162073 book : books) {
                     book.setAuthors(authorService.getByBookId(book.getBookid()));
                 }
-                int totalCount = bookService.countAll();
+                int totalCount = bookService.countAllForAdmin();
                 int totalPages = (int) Math.ceil((double) totalCount / pageSize);
 
                 request.setAttribute("books", books);
@@ -96,7 +96,7 @@ public class AdminBookServlet_24162073 extends HttpServlet {
                 String idParam = request.getParameter("id");
                 if (idParam != null && !idParam.isEmpty()) {
                     int id = Integer.parseInt(idParam);
-                    Book_24162073 book = bookService.getById(id);
+                    Book_24162073 book = bookService.getByIdForAdmin(id);
                     List<Author_24162073> bookAuthors = authorService.getByBookId(id);
                     List<Author_24162073> allAuthors = authorService.getAll();
                     
@@ -110,18 +110,7 @@ public class AdminBookServlet_24162073 extends HttpServlet {
                 break;
 
             case "delete":
-                String delIdParam = request.getParameter("id");
-                if (delIdParam != null && !delIdParam.isEmpty()) {
-                    int id = Integer.parseInt(delIdParam);
-                    boolean success = bookService.delete(id);
-                    if (success) {
-                        response.sendRedirect(request.getContextPath() + "/admin/books?success=true");
-                    } else {
-                        response.sendRedirect(request.getContextPath() + "/admin/books?error=true");
-                    }
-                } else {
-                    response.sendRedirect(request.getContextPath() + "/admin/books");
-                }
+                response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
                 break;
                 
             default:
@@ -141,6 +130,16 @@ public class AdminBookServlet_24162073 extends HttpServlet {
         BookService_24162073 bookService = new BookService_24162073();
 
         switch (action) {
+            case "delete":
+                try {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    boolean success = bookService.delete(id);
+                    response.sendRedirect(request.getContextPath()
+                            + (success ? "/admin/books?success=true" : "/admin/books?error=true"));
+                } catch (NumberFormatException e) {
+                    response.sendRedirect(request.getContextPath() + "/admin/books?error=true");
+                }
+                break;
             case "create":
                 try {
                     int isbn = Integer.parseInt(getValue(request.getPart("isbn")));

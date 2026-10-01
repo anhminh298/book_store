@@ -12,6 +12,7 @@
     <h2>Thêm sách mới</h2>
 
     <form action="${pageContext.request.contextPath}/admin/books?action=create" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
         <div class="mb-3 form-group">
             <label for="isbn" class="form-label">ISBN</label>
             <input type="number" class="form-control" id="isbn" name="isbn" required>

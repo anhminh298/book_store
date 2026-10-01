@@ -14,6 +14,7 @@
                 </c:if>
 
                 <form class="auth-form" action="${pageContext.request.contextPath}/verify-otp" method="POST">
+                    <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
                     <div class="mb-4">
                         <label for="otp" class="form-label">Nhập mã OTP</label>
                         <input type="text" class="form-control otp-input text-center fs-4 letter-spacing-2" id="otp" name="otp" maxlength="6" required>

@@ -54,7 +54,10 @@
                 <td>${book.quantity}</td>
                 <td>
                     <a href="${pageContext.request.contextPath}/admin/books?action=edit&id=${book.bookid}" class="btn btn-warning btn-sm">Sửa</a>
-                    <a href="${pageContext.request.contextPath}/admin/books?action=delete&id=${book.bookid}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa?');">Xóa</a>
+                    <form action="${pageContext.request.contextPath}/admin/books?action=delete&id=${book.bookid}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc muốn xóa?');">
+                        <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
+                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                    </form>
                 </td>
             </tr>
         </c:forEach>

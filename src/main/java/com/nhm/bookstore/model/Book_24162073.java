@@ -14,6 +14,7 @@ public class Book_24162073 {
     private Date publishDate;
     private String coverImage;
     private int quantity;
+    private boolean active = true;
     
     private transient List<Author_24162073> authors;
     private transient int ratingCount;
@@ -103,6 +104,14 @@ public class Book_24162073 {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public List<Author_24162073> getAuthors() {
