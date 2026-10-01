@@ -16,7 +16,10 @@ public class DBConnection_24162073 {
         } catch (ClassNotFoundException e) {
             throw new SQLException("SQL Server JDBC driver is unavailable", e);
         }
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        return DriverManager.getConnection(
+                System.getProperty("bookstore.jdbc.url", URL),
+                System.getProperty("bookstore.jdbc.user", USER),
+                System.getProperty("bookstore.jdbc.password", PASSWORD));
     }
 
     public static Connection getConnection() {

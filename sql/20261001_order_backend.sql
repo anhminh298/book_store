@@ -11,6 +11,18 @@ GO
 ALTER TABLE dbo.books ALTER COLUMN price DECIMAL(18,2) NULL;
 GO
 
+IF EXISTS (SELECT 1 FROM dbo.books WHERE quantity IS NULL OR quantity < 0)
+    THROW 50001, 'Resolve NULL or negative books.quantity before migration.', 1;
+GO
+
+ALTER TABLE dbo.books ALTER COLUMN quantity INT NOT NULL;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.check_constraints
+               WHERE parent_object_id = OBJECT_ID(N'dbo.books') AND name = N'CK_books_quantity')
+    ALTER TABLE dbo.books ADD CONSTRAINT CK_books_quantity CHECK (quantity >= 0);
+GO
+
 IF COL_LENGTH('dbo.books', 'is_active') IS NULL
     ALTER TABLE dbo.books ADD is_active BIT NOT NULL
         CONSTRAINT DF_books_is_active DEFAULT (1) WITH VALUES;

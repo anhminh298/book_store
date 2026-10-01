@@ -39,7 +39,7 @@
                         <div class="book-card-img-wrapper">
                             <c:choose>
                                 <c:when test="${not empty book.coverImage}">
-                                    <img src="${pageContext.request.contextPath}/uploads/${book.coverImage}" alt="${book.title}">
+                                    <img src="${pageContext.request.contextPath}/uploads/<c:out value='${book.coverImage}'/>" alt="<c:out value='${book.title}'/>">
                                 </c:when>
                                 <c:otherwise>
                                     <div class="book-card-placeholder">
@@ -50,15 +50,15 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">
-                                <a href="${pageContext.request.contextPath}/book-detail?id=${book.bookid}">${book.title}</a>
+                                <a href="${pageContext.request.contextPath}/book-detail?id=${book.bookid}"><c:out value="${book.title}"/></a>
                             </h5>
-                            <p class="card-text"><strong>Mã ISBN:</strong> ${book.isbn}</p>
+                            <p class="card-text"><strong>Mã ISBN:</strong> <c:out value="${book.isbn}"/></p>
                             <p class="card-text"><strong>Tác giả:</strong>
                                 <c:forEach var="author" items="${book.authors}" varStatus="authorStatus">
-                                    ${author.authorName}<c:if test="${!authorStatus.last}">, </c:if>
+                                    <c:out value="${author.authorName}"/><c:if test="${!authorStatus.last}">, </c:if>
                                 </c:forEach>
                             </p>
-                            <p class="card-text"><strong>NXB:</strong> ${book.publisher}</p>
+                            <p class="card-text"><strong>NXB:</strong> <c:out value="${book.publisher}"/></p>
                             <p class="card-text"><strong>Ngày XB:</strong> ${book.publishDate}</p>
                             <div class="d-flex justify-content-between align-items-center mt-2">
                                 <span class="price-tag">${book.price} VNĐ</span>

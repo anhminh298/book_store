@@ -72,10 +72,16 @@ public class CartServlet_24162073 extends HttpServlet {
         try {
             bookId = Integer.parseInt(bookIdParam);
             if (quantityParam != null && !quantityParam.trim().isEmpty()) {
-                quantity = Math.max(1, Integer.parseInt(quantityParam.trim()));
+                quantity = Integer.parseInt(quantityParam.trim());
             }
         } catch (NumberFormatException e) {
             session.setAttribute("cartError", "Thông tin sản phẩm không hợp lệ.");
+            response.sendRedirect(request.getContextPath() + "/cart");
+            return;
+        }
+
+        if (bookId <= 0 || quantity <= 0) {
+            session.setAttribute("cartError", "Mã sách hoặc số lượng không hợp lệ.");
             response.sendRedirect(request.getContextPath() + "/cart");
             return;
         }
@@ -103,19 +109,15 @@ public class CartServlet_24162073 extends HttpServlet {
         int currentQty = currentItem != null ? currentItem.getQuantity() : 0;
         int maxStock = book.getQuantity();
 
-        if (currentQty >= maxStock) {
-            session.setAttribute("cartError", "Số lượng trong giỏ đã đạt tối đa tồn kho (" + maxStock + ").");
+        if ((long) currentQty + quantity > maxStock) {
+            session.setAttribute("cartError", "Số lượng yêu cầu vượt quá tồn kho (" + maxStock + ").");
         } else {
             cart.addItem(book, quantity);
-            int newQty = cart.getItem(bookId).getQuantity();
-            if (currentQty + quantity > maxStock) {
-                session.setAttribute("cartSuccess", "Đã thêm vào giỏ hàng (giới hạn tồn kho: " + maxStock + ").");
-            } else {
-                session.setAttribute("cartSuccess", "Đã thêm \"" + book.getTitle() + "\" vào giỏ hàng!");
-            }
+            session.setAttribute("cartSuccess", "Đã thêm \"" + book.getTitle() + "\" vào giỏ hàng!");
         }
 
-        if (redirectUrl != null && !redirectUrl.trim().isEmpty() && !redirectUrl.contains("\n") && !redirectUrl.contains("\r")) {
+        if (redirectUrl != null && redirectUrl.startsWith("/book-detail?id=")
+                && redirectUrl.substring("/book-detail?id=".length()).equals(Integer.toString(bookId))) {
             response.sendRedirect(request.getContextPath() + redirectUrl);
         } else {
             response.sendRedirect(request.getContextPath() + "/cart");
@@ -145,9 +147,12 @@ public class CartServlet_24162073 extends HttpServlet {
         }
 
         Book_24162073 freshBook = bookService.getById(bookId);
-        if (freshBook != null) {
-            item.setBook(freshBook);
+        if (freshBook == null || !isBookActive(freshBook) || freshBook.getQuantity() <= 0) {
+            session.setAttribute("cartError", "Sách hiện không còn bán hoặc đã hết hàng. Vui lòng xóa khỏi giỏ.");
+            response.sendRedirect(request.getContextPath() + "/cart");
+            return;
         }
+        item.setBook(freshBook);
 
         if ("inc".equalsIgnoreCase(action)) {
             boolean increased = cart.increaseQuantity(bookId);
@@ -159,14 +164,15 @@ public class CartServlet_24162073 extends HttpServlet {
         } else if (quantityParam != null) {
             try {
                 int quantity = Integer.parseInt(quantityParam.trim());
-                if (quantity <= 0) {
+                if (quantity == 0) {
                     cart.removeItem(bookId);
                     session.setAttribute("cartSuccess", "Đã xóa sản phẩm khỏi giỏ hàng.");
+                } else if (quantity < 0) {
+                    session.setAttribute("cartError", "Số lượng không được âm.");
                 } else {
                     int maxStock = item.getBook().getQuantity();
                     if (quantity > maxStock) {
-                        cart.updateQuantity(bookId, maxStock);
-                        session.setAttribute("cartError", "Số lượng yêu cầu vượt quá tồn kho. Đã chỉnh về tối đa (" + maxStock + ").");
+                        session.setAttribute("cartError", "Số lượng yêu cầu vượt quá tồn kho (" + maxStock + ").");
                     } else {
                         cart.updateQuantity(bookId, quantity);
                     }

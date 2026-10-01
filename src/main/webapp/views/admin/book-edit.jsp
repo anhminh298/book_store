@@ -19,11 +19,11 @@
         </div>
         <div class="mb-3 form-group">
             <label for="title" class="form-label">Tiêu đề</label>
-            <input type="text" class="form-control" id="title" name="title" value="${book.title}" required>
+            <input type="text" class="form-control" id="title" name="title" value="<c:out value='${book.title}'/>" required>
         </div>
         <div class="mb-3 form-group">
             <label for="publisher" class="form-label">Nhà xuất bản</label>
-            <input type="text" class="form-control" id="publisher" name="publisher" value="${book.publisher}">
+            <input type="text" class="form-control" id="publisher" name="publisher" value="<c:out value='${book.publisher}'/>">
         </div>
         <div class="mb-3 form-group">
             <label for="price" class="form-label">Giá</label>
@@ -31,7 +31,7 @@
         </div>
         <div class="mb-3 form-group">
             <label for="description" class="form-label">Mô tả</label>
-            <textarea class="form-control" id="description" name="description" rows="4">${book.description}</textarea>
+            <textarea class="form-control" id="description" name="description" rows="4"><c:out value="${book.description}"/></textarea>
         </div>
         <div class="mb-3 form-group">
             <label for="publish_date" class="form-label">Ngày xuất bản</label>
@@ -42,7 +42,7 @@
             <label class="form-label">Ảnh bìa hiện tại</label>
             <div>
                 <c:if test="${not empty book.coverImage}">
-                    <img src="${pageContext.request.contextPath}/uploads/${book.coverImage}" alt="Ảnh bìa" width="100" class="mb-2">
+                    <img src="${pageContext.request.contextPath}/uploads/<c:out value='${book.coverImage}'/>" alt="Ảnh bìa" width="100" class="mb-2">
                 </c:if>
                 <c:if test="${empty book.coverImage}">
                     <p class="text-muted">Chưa có ảnh</p>
@@ -50,7 +50,7 @@
             </div>
             <label for="coverImage" class="form-label">Chọn ảnh mới (để trống nếu giữ ảnh cũ)</label>
             <input type="file" class="form-control" id="coverImage" name="coverImage" accept="image/*">
-            <input type="hidden" name="oldCoverImage" value="${book.coverImage}">
+            <input type="hidden" name="oldCoverImage" value="<c:out value='${book.coverImage}'/>">
         </div>
 
         <div class="mb-3 form-group">

@@ -144,7 +144,7 @@
                                     <td style="width: 55px;" class="ps-0">
                                         <c:choose>
                                             <c:when test="${not empty item.book.coverImage}">
-                                                <img src="${pageContext.request.contextPath}/uploads/${item.book.coverImage}"
+                                                <img src="${pageContext.request.contextPath}/uploads/<c:out value='${item.book.coverImage}'/>"
                                                      alt="<c:out value='${item.book.title}'/>"
                                                      class="checkout-item-thumb">
                                             </c:when>

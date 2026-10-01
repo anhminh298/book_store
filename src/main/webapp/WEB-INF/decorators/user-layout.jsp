@@ -50,7 +50,7 @@
                                 <a class="nav-link" href="${pageContext.request.contextPath}/order-history">📦 Đơn hàng</a>
                             </li>
                             <li class="nav-item">
-                                <span class="nav-link">Xin chào, ${sessionScope.user.fullname}</span>
+                                <span class="nav-link">Xin chào, <c:out value="${sessionScope.user.fullname}"/></span>
                             </li>
                             <c:if test="${sessionScope.user.admin}">
                                 <li class="nav-item">

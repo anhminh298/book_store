@@ -38,28 +38,28 @@
 
         <c:choose>
             <c:when test="${not empty currentAuthorId}">
-                <h2>Tác giả: ${selectedAuthor.authorName}</h2>
+                <h2>Tác giả: <c:out value="${selectedAuthor.authorName}"/></h2>
                 <div class="row">
                     <c:forEach var="book" items="${books}">
                         <div class="col-md-4 mb-4">
                             <div class="book-card">
                                 <c:choose>
                                     <c:when test="${not empty book.coverImage}">
-                                        <img src="${pageContext.request.contextPath}/uploads/${book.coverImage}" alt="cover">
+                                        <img src="${pageContext.request.contextPath}/uploads/<c:out value='${book.coverImage}'/>" alt="cover">
                                     </c:when>
                                     <c:otherwise>
                                         <img src="https://via.placeholder.com/150x200" alt="cover placeholder">
                                     </c:otherwise>
                                 </c:choose>
                                 <div class="card-body">
-                                    <h5 class="card-title"><a href="${pageContext.request.contextPath}/book-detail?id=${book.bookid}">${book.title}</a></h5>
+                                    <h5 class="card-title"><a href="${pageContext.request.contextPath}/book-detail?id=${book.bookid}"><c:out value="${book.title}"/></a></h5>
                                     <p class="card-text">Mã isbn: ${book.isbn}</p>
                                     <p class="card-text">Tác giả: 
                                         <c:forEach var="author" items="${book.authors}" varStatus="loop">
-                                            ${author.authorName}<c:if test="${!loop.last}">, </c:if>
+                                            <c:out value="${author.authorName}"/><c:if test="${!loop.last}">, </c:if>
                                         </c:forEach>
                                     </p>
-                                    <p class="card-text">Publisher: ${book.publisher}</p>
+                                    <p class="card-text">Publisher: <c:out value="${book.publisher}"/></p>
                                     <p class="card-text">Publish_date: ${book.publishDate}</p>
                                     <p class="card-text">Quantity: ${book.quantity}</p>
                                     <p class="card-text"><span class="badge bg-info">Review (${book.ratingCount})</span></p>
@@ -92,7 +92,7 @@
                     <c:if test="${not empty entry.value}">
                         <div class="author-section">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h2>Tác giả: ${entry.key.authorName}</h2>
+                                <h2>Tác giả: <c:out value="${entry.key.authorName}"/></h2>
                                 <a href="${pageContext.request.contextPath}/home?authorId=${entry.key.authorId}" class="btn btn-outline-primary btn-sm">Xem tất cả >></a>
                             </div>
                             <div class="row">
@@ -101,21 +101,21 @@
                                         <div class="book-card">
                                             <c:choose>
                                                 <c:when test="${not empty book.coverImage}">
-                                                    <img src="${pageContext.request.contextPath}/uploads/${book.coverImage}" alt="cover">
+                                                    <img src="${pageContext.request.contextPath}/uploads/<c:out value='${book.coverImage}'/>" alt="cover">
                                                 </c:when>
                                                 <c:otherwise>
                                                     <img src="https://via.placeholder.com/150x200" alt="cover placeholder">
                                                 </c:otherwise>
                                             </c:choose>
                                             <div class="card-body">
-                                                <h5 class="card-title"><a href="${pageContext.request.contextPath}/book-detail?id=${book.bookid}">${book.title}</a></h5>
+                                                <h5 class="card-title"><a href="${pageContext.request.contextPath}/book-detail?id=${book.bookid}"><c:out value="${book.title}"/></a></h5>
                                                 <p class="card-text">Mã isbn: ${book.isbn}</p>
                                                 <p class="card-text">Tác giả: 
                                                     <c:forEach var="author" items="${book.authors}" varStatus="loop">
-                                                        ${author.authorName}<c:if test="${!loop.last}">, </c:if>
+                                                        <c:out value="${author.authorName}"/><c:if test="${!loop.last}">, </c:if>
                                                     </c:forEach>
                                                 </p>
-                                                <p class="card-text">Publisher: ${book.publisher}</p>
+                                                <p class="card-text">Publisher: <c:out value="${book.publisher}"/></p>
                                                 <p class="card-text">Publish_date: ${book.publishDate}</p>
                                                 <p class="card-text">Quantity: ${book.quantity}</p>
                                                 <p class="card-text"><span class="badge bg-info">Review (${book.ratingCount})</span></p>

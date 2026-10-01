@@ -41,7 +41,7 @@
                 <td>${(currentPage - 1) * 5 + status.index + 1}</td>
                 <td>
                     <c:if test="${not empty book.coverImage}">
-                        <img src="${pageContext.request.contextPath}/uploads/${book.coverImage}" alt="${book.title}" width="60" height="80" style="object-fit: cover;">
+                        <img src="${pageContext.request.contextPath}/uploads/<c:out value='${book.coverImage}'/>" alt="<c:out value='${book.title}'/>" width="60" height="80" style="object-fit: cover;">
                     </c:if>
                     <c:if test="${empty book.coverImage}">
                         <span class="text-muted">No Image</span>

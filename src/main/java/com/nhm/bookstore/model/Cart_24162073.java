@@ -37,8 +37,7 @@ public class Cart_24162073 implements Serializable {
             // Update book reference to keep latest info
             item.setBook(book);
             int currentQty = item.getQuantity();
-            int targetQty = currentQty + quantity;
-            int newQty = Math.min(targetQty, maxStock);
+            int newQty = (int) Math.min((long) currentQty + quantity, maxStock);
             item.setQuantity(newQty);
             return newQty > currentQty;
         }
@@ -80,8 +79,9 @@ public class Cart_24162073 implements Serializable {
         CartItem_24162073 item = items.get(bookId);
         if (item != null) {
             int maxStock = item.getBook().getQuantity();
-            int newQty = Math.min(quantity, Math.max(1, maxStock));
-            item.setQuantity(newQty);
+            if (maxStock > 0) {
+                item.setQuantity(Math.min(quantity, maxStock));
+            }
         }
     }
 
@@ -104,7 +104,7 @@ public class Cart_24162073 implements Serializable {
     public synchronized int getTotalQuantity() {
         int total = 0;
         for (CartItem_24162073 item : items.values()) {
-            total += item.getQuantity();
+            total = (int) Math.min((long) total + item.getQuantity(), Integer.MAX_VALUE);
         }
         return total;
     }

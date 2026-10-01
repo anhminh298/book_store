@@ -6,10 +6,8 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-@WebFilter("/*")
 public class EncodingFilter_24162073 implements Filter {
 
     @Override

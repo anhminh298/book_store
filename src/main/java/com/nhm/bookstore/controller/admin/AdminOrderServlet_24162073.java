@@ -148,7 +148,7 @@ public class AdminOrderServlet_24162073 extends HttpServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            session.setAttribute("adminOrderError", "Lỗi khi cập nhật trạng thái đơn hàng: " + e.getMessage());
+            session.setAttribute("adminOrderError", "Không thể cập nhật trạng thái đơn hàng lúc này.");
         }
 
         response.sendRedirect(request.getContextPath() + "/admin/order-detail?id=" + orderId);
@@ -177,7 +177,7 @@ public class AdminOrderServlet_24162073 extends HttpServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            session.setAttribute("adminOrderError", "Lỗi khi hủy đơn hàng: " + e.getMessage());
+            session.setAttribute("adminOrderError", "Không thể hủy đơn hàng lúc này.");
         }
 
         response.sendRedirect(request.getContextPath() + "/admin/order-detail?id=" + orderId);

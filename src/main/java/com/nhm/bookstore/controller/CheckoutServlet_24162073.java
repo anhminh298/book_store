@@ -66,9 +66,13 @@ public class CheckoutServlet_24162073 extends HttpServlet {
         }
 
         if ("/checkout/prepare".equals(servletPath)) {
-            handlePrepare(request, response, session);
+            synchronized (session) {
+                handlePrepare(request, response, session);
+            }
         } else if ("/checkout".equals(servletPath)) {
-            handlePlaceOrder(request, response, session, user);
+            synchronized (session) {
+                handlePlaceOrder(request, response, session, user);
+            }
         } else {
             response.sendRedirect(request.getContextPath() + "/cart");
         }
@@ -94,7 +98,7 @@ public class CheckoutServlet_24162073 extends HttpServlet {
         for (String idStr : selectedBookIds) {
             try {
                 int bookId = Integer.parseInt(idStr.trim());
-                if (cart.getItem(bookId) != null) {
+                if (cart.getItem(bookId) != null && !validSelectedIds.contains(bookId)) {
                     validSelectedIds.add(bookId);
                 }
             } catch (NumberFormatException ignored) {
@@ -219,7 +223,7 @@ public class CheckoutServlet_24162073 extends HttpServlet {
             } else if (msg != null && msg.contains("inactive")) {
                 request.setAttribute("error", "Một số sản phẩm trong đơn hàng hiện đã ngừng kinh doanh.");
             } else {
-                request.setAttribute("error", "Đặt hàng thất bại: " + msg);
+                request.setAttribute("error", "Không thể đặt hàng lúc này. Vui lòng kiểm tra lại giỏ hàng.");
             }
             request.setAttribute("receiverName", receiverName);
             request.setAttribute("receiverPhone", receiverPhone);
@@ -230,7 +234,7 @@ public class CheckoutServlet_24162073 extends HttpServlet {
 
         } catch (IllegalArgumentException e) {
             prepareCheckoutViewAttributes(request, cart, selectedIds);
-            request.setAttribute("error", "Dữ liệu không hợp lệ: " + e.getMessage());
+            request.setAttribute("error", "Dữ liệu đặt hàng không hợp lệ. Vui lòng kiểm tra lại thông tin.");
             request.getRequestDispatcher("/views/checkout.jsp").forward(request, response);
 
         } catch (SQLException e) {

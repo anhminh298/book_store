@@ -54,7 +54,7 @@
             <div class="col-md-4 text-center text-md-start">
                 <c:choose>
                     <c:when test="${not empty book.coverImage}">
-                        <img src="${pageContext.request.contextPath}/uploads/${book.coverImage}" alt="cover">
+                        <img src="${pageContext.request.contextPath}/uploads/<c:out value='${book.coverImage}'/>" alt="cover">
                     </c:when>
                     <c:otherwise>
                         <img src="https://via.placeholder.com/300x400" alt="cover placeholder">
@@ -62,14 +62,14 @@
                 </c:choose>
             </div>
             <div class="col-md-8 mt-4 mt-md-0">
-                <h1 class="mb-3">${book.title}</h1>
-                <p><strong>Mã ISBN:</strong> ${book.isbn}</p>
+                <h1 class="mb-3"><c:out value="${book.title}"/></h1>
+                <p><strong>Mã ISBN:</strong> <c:out value="${book.isbn}"/></p>
                 <p><strong>Tác giả:</strong>
                     <c:forEach var="author" items="${authors}" varStatus="loop">
-                        ${author.authorName}<c:if test="${!loop.last}">, </c:if>
+                        <c:out value="${author.authorName}"/><c:if test="${!loop.last}">, </c:if>
                     </c:forEach>
                 </p>
-                <p><strong>Nhà xuất bản:</strong> ${book.publisher}</p>
+                <p><strong>Nhà xuất bản:</strong> <c:out value="${book.publisher}"/></p>
                 <p><strong>Ngày xuất bản:</strong> ${book.publishDate}</p>
                 <p><strong>Số lượng:</strong> ${book.quantity}</p>
                 <p><strong>Giá:</strong> <span class="fs-4 fw-bold text-danger">${book.price} VNĐ</span></p>
@@ -107,7 +107,7 @@
                 </c:choose>
                 <div class="mt-4">
                     <strong>Mô tả:</strong>
-                    <p class="mt-2">${book.description}</p>
+                    <p class="mt-2"><c:out value="${book.description}"/></p>
                 </div>
                 <div class="mt-4">
                     <span class="badge bg-primary fs-6">Reviews (${ratingCount})</span>

@@ -59,7 +59,7 @@
     </c:if>
 
     <c:choose>
-        <c:when test="${empty sessionScope.cart or sessionScope.cart.empty}">
+        <c:when test="${empty sessionScope.cart or sessionScope.cart.itemCount == 0}">
             <div class="card p-5 text-center my-4 border-0 shadow-sm">
                 <div class="mb-3" style="font-size: 4rem;">🛍️</div>
                 <h4 class="text-muted">Giỏ hàng của bạn đang trống!</h4>
@@ -123,7 +123,7 @@
                                                 <td>
                                                     <c:choose>
                                                         <c:when test="${not empty item.book.coverImage}">
-                                                            <img src="${pageContext.request.contextPath}/uploads/${item.book.coverImage}"
+                                                            <img src="${pageContext.request.contextPath}/uploads/<c:out value='${item.book.coverImage}'/>"
                                                                  alt="<c:out value='${item.book.title}'/>">
                                                         </c:when>
                                                         <c:otherwise>
@@ -176,7 +176,7 @@
                                                 <td>
                                                     <button type="button" class="btn btn-link text-danger p-0"
                                                             title="Xóa sản phẩm"
-                                                            onclick="submitRemoveItem(${item.book.bookid}, '<c:out value="${item.book.title}"/>')">
+                                                            onclick="submitRemoveItem(${item.book.bookid})">
                                                         ✖
                                                     </button>
                                                 </td>
@@ -337,8 +337,8 @@
         form.submit();
     }
 
-    function submitRemoveItem(bookId, bookTitle) {
-        if (confirm('Bạn có chắc chắn muốn xóa sách "' + bookTitle + '" khỏi giỏ hàng?')) {
+    function submitRemoveItem(bookId) {
+        if (confirm('Bạn có chắc chắn muốn xóa sách này khỏi giỏ hàng?')) {
             const form = document.getElementById('removeItemForm');
             document.getElementById('removeBookId').value = bookId;
             form.submit();

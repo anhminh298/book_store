@@ -34,7 +34,7 @@
                     <ul class="navbar-nav">
                         <c:if test="${not empty sessionScope.user}">
                             <li class="nav-item">
-                                <span class="nav-link">Xin chào, ${sessionScope.user.fullname}</span>
+                                <span class="nav-link">Xin chào, <c:out value="${sessionScope.user.fullname}"/></span>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>

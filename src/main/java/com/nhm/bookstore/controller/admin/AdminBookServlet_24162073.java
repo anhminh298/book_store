@@ -153,6 +153,9 @@ public class AdminBookServlet_24162073 extends HttpServlet {
                         publishDate = Date.valueOf(publishDateStr);
                     }
                     int quantity = Integer.parseInt(getValue(request.getPart("quantity")));
+                    if (quantity < 0 || price.signum() < 0) {
+                        throw new IllegalArgumentException("Price and quantity must be nonnegative");
+                    }
                     int authorId = Integer.parseInt(getValue(request.getPart("author_id")));
 
                     Part filePart = request.getPart("coverImage");
@@ -211,6 +214,9 @@ public class AdminBookServlet_24162073 extends HttpServlet {
                         publishDate = Date.valueOf(publishDateStr);
                     }
                     int quantity = Integer.parseInt(getValue(request.getPart("quantity")));
+                    if (quantity < 0 || price.signum() < 0) {
+                        throw new IllegalArgumentException("Price and quantity must be nonnegative");
+                    }
                     int authorId = Integer.parseInt(getValue(request.getPart("author_id")));
 
                     String oldCoverImage = getValue(request.getPart("oldCoverImage"));

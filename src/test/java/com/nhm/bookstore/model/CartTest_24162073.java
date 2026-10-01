@@ -41,6 +41,13 @@ class CartTest_24162073 {
     }
 
     @Test
+    void testAdditionCannotOverflowQuantity() {
+        cart.addItem(bookA, 2);
+        assertTrue(cart.addItem(bookA, Integer.MAX_VALUE));
+        assertEquals(10, cart.getItem(1).getQuantity());
+    }
+
+    @Test
     @DisplayName("Thêm mới sản phẩm vào giỏ hàng")
     void testAddNewItem() {
         boolean added = cart.addItem(bookA, 2);

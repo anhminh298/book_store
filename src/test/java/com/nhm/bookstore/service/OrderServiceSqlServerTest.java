@@ -39,6 +39,10 @@ class OrderServiceSqlServerTest {
             String base = Files.readString(Path.of("sql/create_tables.sql"), StandardCharsets.UTF_8)
                     .replaceFirst("(?i)USE bookstore_db;", "");
             statement.execute(base);
+            statement.execute("INSERT INTO users(email,fullname,phone,passwd,is_admin) "
+                    + "VALUES ('legacy@example.com','Legacy',123456789,'test',0)");
+            statement.execute("INSERT INTO books(isbn,title,publisher,price,quantity) "
+                    + "VALUES (9090,'Legacy Book','Legacy Publisher',19.95,2)");
             String migration = Files.readString(Path.of("sql/20261001_order_backend.sql"),
                     StandardCharsets.UTF_8).replaceFirst("(?i)USE bookstore_db;", "");
             for (String batch : migration.split("(?im)^GO\\s*$")) {
@@ -59,6 +63,30 @@ class OrderServiceSqlServerTest {
              Statement statement = conn.createStatement()) {
             statement.execute("ALTER DATABASE [" + database + "] SET SINGLE_USER WITH ROLLBACK IMMEDIATE");
             statement.execute("DROP DATABASE [" + database + "]");
+        }
+    }
+
+    @Test
+    void migrationPreservesLegacyRowsAndAddsQuantityConstraint() throws Exception {
+        try (Connection conn = connection();
+             Statement statement = conn.createStatement();
+             ResultSet rows = statement.executeQuery(
+                     "SELECT phone FROM users WHERE email='legacy@example.com'")) {
+            assertTrue(rows.next());
+            assertEquals("123456789", rows.getString(1));
+        }
+        try (Connection conn = connection();
+             Statement statement = conn.createStatement();
+             ResultSet rows = statement.executeQuery(
+                     "SELECT price,quantity,is_active FROM books WHERE isbn=9090")) {
+            assertTrue(rows.next());
+            assertEquals(new BigDecimal("19.95"), rows.getBigDecimal(1));
+            assertEquals(2, rows.getInt(2));
+            assertTrue(rows.getBoolean(3));
+        }
+        try (Connection conn = connection(); Statement statement = conn.createStatement()) {
+            assertThrows(SQLException.class,
+                    () -> statement.executeUpdate("UPDATE books SET quantity=-1 WHERE isbn=9090"));
         }
     }
 
