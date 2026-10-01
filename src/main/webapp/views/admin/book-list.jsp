@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="vi">
@@ -47,17 +47,29 @@
                         <span class="text-muted">No Image</span>
                     </c:if>
                 </td>
-                <td>${book.title}</td>
+                <td>
+                    <c:out value="${book.title}"/>
+                    <c:if test="${!book.active}">
+                        <span class="badge bg-secondary ms-1">Đã ngừng bán</span>
+                    </c:if>
+                </td>
                 <td>${book.isbn}</td>
-                <td>${book.publisher}</td>
+                <td><c:out value="${book.publisher}"/></td>
                 <td>${book.price}</td>
                 <td>${book.quantity}</td>
                 <td>
                     <a href="${pageContext.request.contextPath}/admin/books?action=edit&id=${book.bookid}" class="btn btn-warning btn-sm">Sửa</a>
-                    <form action="${pageContext.request.contextPath}/admin/books?action=delete&id=${book.bookid}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc muốn xóa?');">
-                        <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
-                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                    </form>
+                    <c:choose>
+                        <c:when test="${book.active}">
+                            <form action="${pageContext.request.contextPath}/admin/books?action=delete&id=${book.bookid}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc muốn xóa?');">
+                                <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
+                                <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                            </form>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="badge bg-light text-muted border">Đã ẩn</span>
+                        </c:otherwise>
+                    </c:choose>
                 </td>
             </tr>
         </c:forEach>

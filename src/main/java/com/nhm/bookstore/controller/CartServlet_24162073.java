@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 
 @WebServlet({"/cart", "/cart/add", "/cart/update", "/cart/remove", "/cart/clear"})
 public class CartServlet_24162073 extends HttpServlet {
@@ -210,15 +209,6 @@ public class CartServlet_24162073 extends HttpServlet {
     }
 
     private boolean isBookActive(Book_24162073 book) {
-        if (book == null) return false;
-        try {
-            Method m = book.getClass().getMethod("isActive");
-            Object result = m.invoke(book);
-            if (result instanceof Boolean) {
-                return (Boolean) result;
-            }
-        } catch (Exception ignored) {
-        }
-        return true;
+        return book != null && book.isActive();
     }
 }
