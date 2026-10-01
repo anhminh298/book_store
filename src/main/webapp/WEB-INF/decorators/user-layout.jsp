@@ -58,7 +58,10 @@
                                 </li>
                             </c:if>
                             <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
+                                <form action="${pageContext.request.contextPath}/logout" method="post" class="m-0">
+                                    <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
+                                    <button type="submit" class="nav-link border-0 bg-transparent">Đăng xuất</button>
+                                </form>
                             </li>
                         </c:if>
                     </ul>

@@ -14,10 +14,12 @@ import java.util.Properties;
 public class EmailService_24162073 {
     private static final String HOST = "smtp.gmail.com";
     private static final String PORT = "587";
-    private static final String EMAIL = "nguyenanhminh29082k6@gmail.com";
-    private static final String PASSWORD = "bugn osfp oobk mwsv";
 
     public static boolean sendOTP(String toEmail, String otpCode) {
+        String email = setting("bookstore.smtp.user", "BOOKSTORE_SMTP_USER");
+        String password = setting("bookstore.smtp.password", "BOOKSTORE_SMTP_PASSWORD");
+        if (email == null || password == null) return false;
+
         Properties props = new Properties();
         props.put("mail.smtp.host", HOST);
         props.put("mail.smtp.port", PORT);
@@ -27,22 +29,26 @@ public class EmailService_24162073 {
         Session session = Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(EMAIL, PASSWORD);
+                return new PasswordAuthentication(email, password);
             }
         });
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(EMAIL));
+            message.setFrom(new InternetAddress(email));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
             message.setSubject("Mã OTP xác thực tài khoản BookStore");
             message.setText("Mã OTP của bạn là: " + otpCode + "\nVui lòng không chia sẻ mã này cho bất kỳ ai.");
-
             Transport.send(message);
             return true;
         } catch (MessagingException e) {
-            e.printStackTrace();
             return false;
         }
+    }
+
+    private static String setting(String property, String environmentVariable) {
+        String value = System.getProperty(property);
+        if (value == null || value.isBlank()) value = System.getenv(environmentVariable);
+        return value == null || value.isBlank() ? null : value;
     }
 }

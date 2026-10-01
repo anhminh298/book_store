@@ -116,8 +116,9 @@ public class CartServlet_24162073 extends HttpServlet {
             session.setAttribute("cartSuccess", "Đã thêm \"" + book.getTitle() + "\" vào giỏ hàng!");
         }
 
-        if (redirectUrl != null && redirectUrl.startsWith("/book-detail?id=")
-                && redirectUrl.substring("/book-detail?id=".length()).equals(Integer.toString(bookId))) {
+        if (redirectUrl != null && redirectUrl.matches("/products\\?page=\\d{1,6}")) {
+            response.sendRedirect(request.getContextPath() + redirectUrl);
+        } else if (redirectUrl != null && redirectUrl.equals("/book-detail?id=" + bookId)) {
             response.sendRedirect(request.getContextPath() + redirectUrl);
         } else {
             response.sendRedirect(request.getContextPath() + "/cart");

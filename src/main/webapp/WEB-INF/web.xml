@@ -45,8 +45,6 @@
         <filter-name>authFilter</filter-name>
         <url-pattern>/review</url-pattern>
         <url-pattern>/profile</url-pattern>
-        <url-pattern>/cart</url-pattern>
-        <url-pattern>/cart/*</url-pattern>
         <url-pattern>/checkout</url-pattern>
         <url-pattern>/checkout/*</url-pattern>
         <url-pattern>/order-history</url-pattern>

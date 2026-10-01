@@ -7,7 +7,6 @@ public class User_24162073 {
     private String email;
     private String fullname;
     private String phone;
-    private String passwd;
     private Timestamp signupDate;
     private Timestamp lastLogin;
     private boolean isAdmin;
@@ -15,12 +14,11 @@ public class User_24162073 {
     public User_24162073() {
     }
 
-    public User_24162073(int id, String email, String fullname, String phone, String passwd, Timestamp signupDate, Timestamp lastLogin, boolean isAdmin) {
+    public User_24162073(int id, String email, String fullname, String phone, Timestamp signupDate, Timestamp lastLogin, boolean isAdmin) {
         this.id = id;
         this.email = email;
         this.fullname = fullname;
         this.phone = phone;
-        this.passwd = passwd;
         this.signupDate = signupDate;
         this.lastLogin = lastLogin;
         this.isAdmin = isAdmin;
@@ -56,14 +54,6 @@ public class User_24162073 {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getPasswd() {
-        return passwd;
-    }
-
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
     }
 
     public Timestamp getSignupDate() {
